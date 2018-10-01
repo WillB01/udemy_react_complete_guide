@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import Person from './Person/Person';
 
-class Persons extends Component {
+class Persons extends PureComponent {
     constructor(props) {
         super(props);
         console.log('[Persons.js] Inside constructor ' + props);
@@ -17,12 +17,22 @@ class Persons extends Component {
       }
 
       componentWillReceiveProps(nextPros) {
-          console.log(['UPDATE Persons.js Insode componentWillReceiveProps ', nextPros]);
+          console.log(['UPDATE Persons.js Insode componentWillReceiveProps() ', nextPros]);
       }
 
-      shouldComponentUpdate(nextProps, nextState) {
-          console.log('[UPDATE Persons.js] Inside shouldComponentUpdate', nextProps, nextState);
-          return true;
+    //   shouldComponentUpdate(nextProps, nextState) {
+    //       console.log('[UPDATE Persons.js] Inside shouldComponentUpdate()', nextProps, nextState);
+    //       return nextProps.persons !== this.props.persons;
+    //         // return true;
+    //   }
+
+      componentWillUpdate(nextProps, nextState) {
+        console.log('[UPDATE Persons.js] Inside componentWillUpdate()', nextProps, nextState);
+      }
+
+      componentDidUpdate() {
+        console.log('[UPDATE Persons.js] Inside componentDidUpdate()');
+
       }
     render() {
         console.log('[Persons.js] Inside render()');
