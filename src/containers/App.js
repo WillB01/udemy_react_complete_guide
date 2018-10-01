@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import classes from './App.css';
-import Person from './components/Person/Person';
+import Persons from '../components/Persons/Persons';
+import Cockpit from '../components/Cockpit/Cockpit';
 
 class App extends Component {
   constructor(props) {
@@ -43,47 +44,24 @@ class App extends Component {
   }
 
   togglePersonsHandler = () => {
-    !this.state.showPersons ? this.setState({showPersons: true}) : 
-                              this.setState({showPersons: false});
+    const doesShow = this.state.showPersons;
+    this.setState({showPersons: !doesShow});
   };
 
   render() {
     let persons = null;
-    let btnClass = '';
-   
 
     if (this.state.showPersons){
-      persons = (
-        <div>
-          {this.state.persons.map((person, index) => {
-            return(
-              <Person key={person.id}
-                      click={() => this.deletePersonHandler(index)}
-                      name={person.name}
-                      age={person.age}
-                      changed={(event) => this.nameChangedHandler(event, person.id)} />
-            );
-          })}
-      </div>
-      );
-          btnClass = classes.Red;
-  
-   
-    }
-
-    const assignedClasses = [];
-    if (this.state.persons.length <= 2) {
-      assignedClasses.push(classes.red);
-    }
-    if (this.state.persons.length <= 1) {
-      assignedClasses.push(classes.bold);
-    }
+      persons = <Persons persons={this.state.persons}
+                         click={this.deletePersonHandler}
+                         changed={this.nameChangedHandler} /> ;
+    };
 
     return (
       <div className={classes.App}>
-        <h1>Hello</h1>
-        <p className={assignedClasses.join(' ')}>This is really working!</p>
-        <button className={btnClass} onClick={this.togglePersonsHandler}>Toggle Persons</button>
+      <Cockpit showPersons={this.state.showPersons}
+               persons={this.state.persons} 
+               clicked={this.togglePersonsHandler} />
         {persons}
       </div>
   
