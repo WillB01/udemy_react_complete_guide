@@ -14,10 +14,18 @@ class App extends Component {
       ],
       showPersons: false,
     };
-
-    // this.switchNameHandler = this.switchNameHandler.bind(this);
+    console.log('[App.js] Inside constructor ' + props);
 
   }
+
+  componentWillMount() {
+    console.log('[App.js] Inside componentWillMount()');
+  }
+
+  componentDidMount() {
+    console.log('[App.js] Inside componentDidMount()');
+  }
+
   nameChangedHandler = (event, id) => {
     const personIndex = this.state.persons.findIndex(p => {
       return p.id === id;
@@ -49,6 +57,7 @@ class App extends Component {
   };
 
   render() {
+    console.log('[App.js] Inside render()');
     let persons = null;
 
     if (this.state.showPersons){
@@ -59,7 +68,8 @@ class App extends Component {
 
     return (
       <div className={classes.App}>
-      <Cockpit showPersons={this.state.showPersons}
+      <Cockpit appTitle={this.props.title}
+               showPersons={this.state.showPersons}
                persons={this.state.persons} 
                clicked={this.togglePersonsHandler} />
         {persons}
